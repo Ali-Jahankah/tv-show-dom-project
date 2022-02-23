@@ -15,8 +15,13 @@ function getOneShow() {
     runtime: 60,
     premiered: "2011-04-17",
     officialSite: "http://www.hbo.com/game-of-thrones",
-    schedule: { time: "21:00", days: ["Sunday"] },
-    rating: { average: 9.1 },
+    schedule: {
+      time: "21:00",
+      days: ["Sunday"]
+    },
+    rating: {
+      average: 9.1
+    },
     weight: 97,
     network: {
       id: 8,
@@ -36,26 +41,30 @@ function getOneShow() {
         timezone: "America/New_York",
       },
     },
-    externals: { tvrage: 24493, thetvdb: 121361, imdb: "tt0944947" },
-    image: {
-      medium:
-        "http://static.tvmaze.com/uploads/images/medium_portrait/190/476117.jpg",
-      original:
-        "http://static.tvmaze.com/uploads/images/original_untouched/190/476117.jpg",
+    externals: {
+      tvrage: 24493,
+      thetvdb: 121361,
+      imdb: "tt0944947"
     },
-    summary:
-      "<p>Based on the bestselling book series <i>A Song of Ice and Fire</i> by George R.R. Martin, this sprawling new HBO drama is set in a world where summers span decades and winters can last a lifetime. From the scheming south and the savage eastern lands, to the frozen north and ancient Wall that protects the realm from the mysterious darkness beyond, the powerful families of the Seven Kingdoms are locked in a battle for the Iron Throne. This is a story of duplicity and treachery, nobility and honor, conquest and triumph. In the <b>Game of Thrones</b>, you either win or you die.</p>",
+    image: {
+      medium: "http://static.tvmaze.com/uploads/images/medium_portrait/190/476117.jpg",
+      original: "http://static.tvmaze.com/uploads/images/original_untouched/190/476117.jpg",
+    },
+    summary: "<p>Based on the bestselling book series <i>A Song of Ice and Fire</i> by George R.R. Martin, this sprawling new HBO drama is set in a world where summers span decades and winters can last a lifetime. From the scheming south and the savage eastern lands, to the frozen north and ancient Wall that protects the realm from the mysterious darkness beyond, the powerful families of the Seven Kingdoms are locked in a battle for the Iron Throne. This is a story of duplicity and treachery, nobility and honor, conquest and triumph. In the <b>Game of Thrones</b>, you either win or you die.</p>",
     updated: 1580402781,
     _links: {
-      self: { href: "http://api.tvmaze.com/shows/82" },
-      previousepisode: { href: "http://api.tvmaze.com/episodes/1623968" },
+      self: {
+        href: "http://api.tvmaze.com/shows/82"
+      },
+      previousepisode: {
+        href: "http://api.tvmaze.com/episodes/1623968"
+      },
     },
   };
 }
 
 function getAllShows() {
-  return [
-    {
+  return [{
       "id": 1632,
       "url": "http://www.tvmaze.com/shows/1632/horatio-hornblower",
       "name": "Horatio Hornblower",
@@ -16392,8 +16401,13 @@ function getAllShows() {
       "runtime": 30,
       "premiered": "1989-12-17",
       "officialSite": "http://www.fox.com/the-simpsons/full-episodes",
-      "schedule": { "time": "20:00", "days": ["Sunday"] },
-      "rating": { "average": 8.3 },
+      "schedule": {
+        "time": "20:00",
+        "days": ["Sunday"]
+      },
+      "rating": {
+        "average": 8.3
+      },
       "weight": 99,
       "network": {
         "id": 4,
@@ -16405,7 +16419,11 @@ function getAllShows() {
         }
       },
       "webChannel": null,
-      "externals": { "tvrage": 6190, "thetvdb": 71663, "imdb": "tt0096697" },
+      "externals": {
+        "tvrage": 6190,
+        "thetvdb": 71663,
+        "imdb": "tt0096697"
+      },
       "image": {
         "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/0/639.jpg",
         "original": "http://static.tvmaze.com/uploads/images/original_untouched/0/639.jpg"
@@ -16413,9 +16431,15 @@ function getAllShows() {
       "summary": "<p><b>The Simpsons</b> is the longest running scripted show in US television history. It captures the adventures of Homer, Marge, Maggie, Bart and Lisa who are living in a fictional town called Springfield.</p>",
       "updated": 1587574602,
       "_links": {
-        "self": { "href": "http://api.tvmaze.com/shows/83" },
-        "previousepisode": { "href": "http://api.tvmaze.com/episodes/1824338" },
-        "nextepisode": { "href": "http://api.tvmaze.com/episodes/1829795" }
+        "self": {
+          "href": "http://api.tvmaze.com/shows/83"
+        },
+        "previousepisode": {
+          "href": "http://api.tvmaze.com/episodes/1824338"
+        },
+        "nextepisode": {
+          "href": "http://api.tvmaze.com/episodes/1829795"
+        }
       }
     }
 

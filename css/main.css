@@ -1,0 +1,100 @@
+:root {
+    --dark: #3c3c3c;
+    --purple: #945d60;
+    --green: #626E60;
+    --red: #AF473C;
+
+}
+
+@keyframes episodeBorder {
+    0% {
+        border-top: 2px solid orangered
+    }
+
+    20% {
+        border-top: 2px solid rgb(14, 125, 251)
+    }
+
+    40% {
+        border-top: 2px solid yellow
+    }
+
+    60% {
+        border-top: 2px solid rgb(255, 0, 234)
+    }
+
+    80% {
+        border-top: 2px solid rgb(0, 218, 0)
+    }
+
+    100% {
+        border-top: 2px solid orangered
+    }
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    outline: 0;
+    box-sizing: border-box;
+    border: 0;
+}
+
+#root {
+    width: 100%;
+    background: var(--dark);
+}
+
+.episodes {
+    width: 100%;
+    padding: 1em;
+    display: flex;
+
+    margin-top: 2em;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.episode {
+    width: 45%;
+    position: relative;
+    height: 200px;
+    overflow-x: hidden;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 1.5em;
+    padding: 0.5em 0;
+    border-top: 1px solid var(--green);
+}
+
+.episode span {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--red);
+}
+
+.episode::-webkit-scrollbar {
+    display: none;
+}
+
+.episode:hover .overlay {
+    transform: translateX(0);
+    background: rgb(19, 18, 18);
+}
+
+.episode img {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: var(--dark);
+    color: wheat;
+    transition: all 1.5s;
+    transform: translateX(100%);
+    animation: episodeBorder infinite 4s;
+    border-top: 2px solid;
+}
