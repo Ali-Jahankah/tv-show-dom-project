@@ -10,6 +10,15 @@
     width: 100%;
     position: relative;
     padding: 0.5em;
+
+}
+
+.nav_menu_div {
+    display: none;
+}
+
+.nav_svg {
+    display: none;
 }
 
 .nav {
@@ -22,7 +31,7 @@
     position: absolute;
     top: 35px;
     left: 0;
-    display: none;
+    /* display: none; */
 }
 
 .nav_search_div {
@@ -40,23 +49,76 @@
     color: wheat;
 }
 
+.nav_select_div {
+    width: 50%;
+}
+
+.nav_select_div select {
+    width: 100%;
+}
+
 .nav_ul {
-    display: none;
-    color: var(--purple);
-    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-evenly;
+    height: 80%;
+    text-align: center;
+
+    font-size: 2.2rem;
     font-weight: 600;
     cursor: pointer;
+
 }
 
 .nav_ul li {
     list-style: none;
-    margin: 0 8px;
+}
+
+.nav_ul li a {
+    text-decoration: none;
+    color: var(--dark);
+    transition: 1.2s all;
+    border-bottom: 4px solid transparent;
+
+}
+
+.nav_ul li:hover a {
+    border-bottom-color: var(--red);
+    border-width: 100%;
+    transform: scale(1.2);
+    color: black;
 }
 
 /* ------Burger BTN */
 .burger_container div {
     padding: 0.2em 1.2em;
-    background: var(--red);
+    background: rgb(31, 26, 27);
     margin: 3px 0;
     border-radius: 2px;
+}
+
+.burger_container {
+    cursor: pointer;
+    z-index: 15;
+}
+
+/* Burger Menu--------- */
+.burger_menu {
+    width: 100%;
+    position: fixed;
+    height: 100vh;
+
+    background: var(--dark);
+    top: 0;
+    left: 0;
+    transition: all 2s;
+    transform: translateX(100%);
+    z-index: 10;
+
+}
+
+.moving_menu {
+    transform: translateX(0%);
+    background: var(--purple);
 }

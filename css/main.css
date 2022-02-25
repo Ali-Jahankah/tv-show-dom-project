@@ -43,6 +43,7 @@
 #root {
     width: 100%;
     background: var(--dark);
+    min-height: 100vh;
 }
 
 .episodes {
@@ -70,7 +71,7 @@
 .episode span {
     font-size: 1.2rem;
     font-weight: 700;
-    color: var(--red);
+    color: black;
 }
 
 .episode::-webkit-scrollbar {
@@ -97,4 +98,21 @@
     transform: translateX(100%);
     animation: episodeBorder infinite 4s;
     border-top: 2px solid;
+}
+
+.nav_select {
+    background: var(--purple);
+    padding: 0.5em;
+    border-radius: 20px;
+}
+
+.nav_select::-webkit-scrollbar {
+    background-color: var(--red);
+
+}
+
+.nav_select::-webkit-scrollbar-thumb {
+    border-radius: 50%;
+    background-color: var(--dark);
+    z-index: 27;
 }

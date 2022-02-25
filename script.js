@@ -15,7 +15,7 @@ function setup() {
   const menu_ul = document.createElement("ul");
   menu_ul.className = "nav_ul";
   nav_menu_div.appendChild(menu_ul);
-  let menuArr = ["Login", "Contact us", "News", "Offers"];
+  let menuArr = ["Login", "Contact", "News", "Offers"];
 
   const menu_li_1 = document.createElement("li");
   const menu_li_2 = document.createElement("li");
@@ -24,7 +24,7 @@ function setup() {
   let liArr = [menu_li_1, menu_li_2, menu_li_3, menu_li_4]
   for (let i = 0; i < menuArr.length; i++) {
     liArr[i].className = "nav_li";
-    liArr[i].innerText = menuArr[i];
+    liArr[i].innerHTML = `<a href=#${menuArr[i]}>${menuArr[i]}</a>`;
     menu_ul.appendChild(liArr[i])
   }
 
@@ -36,9 +36,15 @@ function setup() {
   nav_search_div.appendChild(nav_search);
   nav_search.value = "";
   nav_search.placeholder = "search...";
+  //Event listener for the search input
 
-  nav_search.addEventListener("change", (e) => {
-    handleSearch(e);
+  nav_search.addEventListener("input", (e) => {
+    const newArr = episodes.filter(obj => {
+      return obj.summary.includes(e.target.value) || obj.name.includes(e.target.value)
+    });
+    noneValueOption.selected = true;
+    console.log(nav_select.value);
+    episodesHandler(newArr)
   })
   //nav select
   const nav_select_div = document.createElement("div");
@@ -47,6 +53,27 @@ function setup() {
   nav_select_div.appendChild(nav_select);
   nav_select.value = "none";
   nav_select.className = "nav_select";
+  episodes.forEach(item => {
+    let newOption = document.createElement("option");
+
+    newOption.value = item.name;
+    newOption.innerText = `$S${String(item.season).padStart(2,0)}E${String(item.number).padStart(2,0)} - ${item.name}`;
+    nav_select.appendChild(newOption);
+
+  });
+  let noneValueOption = document.createElement("option");
+  noneValueOption.value = "none";
+  noneValueOption.selected = true;
+  noneValueOption.innerText = "None";
+  nav_select.appendChild(noneValueOption)
+  //Event listener for the select tag
+  nav_select.addEventListener("change", () => {
+    const newArr = episodes.filter(item => {
+      return item.name === nav_select.value;
+    });
+    nav_search.value = "";
+    newArr.length === 0 ? episodesHandler(episodes) : episodesHandler(newArr)
+  })
   //Hamburger BTN
   let burgerContainer = document.createElement("div");
   burgerContainer.className = "burger_container";
@@ -57,7 +84,14 @@ function setup() {
   let bottomDiv = document.createElement("div");
   bottomDiv.className = "bottom_burger";
   burgerContainer.append(topDiv, middleDiv, bottomDiv);
-
+  //Hamburger Menu-------
+  let burgerMenu = document.createElement("div");
+  burgerMenu.className = "burger_menu";
+  burgerContainer.addEventListener("click", () => {
+    burgerMenu.classList.toggle("moving_menu");
+  });
+  burgerMenu.appendChild(menu_ul);
+  rootTag.appendChild(burgerMenu);
   //Creating header by appending the children
   header.appendChild(nav);
   nav.append(burgerContainer, nav_menu_div, nav_select_div, nav_search_div);
@@ -75,12 +109,32 @@ function setup() {
   episodesArticle.className = "episodes";
 
   //------Showing all the episodes
-  episodes.forEach(obj => {
-    let newDiv = document.createElement("div");
-    newDiv.innerHTML = `<h1>S${String(obj.season).padStart(2,0)}E${String(obj.number).padStart(2,0)}</h1><div><img src=${obj.image.medium} /></div><span>Hover for a summery</span><div class='overlay'>${obj.summary}</div>`;
-    newDiv.className = "episode";
-    episodesArticle.appendChild(newDiv);
-  });
+  const episodesHandler = (arr) => {
+
+    while (episodesArticle.hasChildNodes()) {
+      episodesArticle.removeChild(episodesArticle.lastChild);
+
+    }
+    if (arr.length === 0) {
+
+      return episodesArticle.innerHTML = "<h1 style='text-align:center ; width:100%'>Ooops, Sorry nothing found!</h1>"
+    }
+    arr.forEach(obj => {
+
+      let newDiv = document.createElement("div");
+      if (arr.length === 0) {
+        document.querySelector(".episodes")
+      } else {
+        newDiv.innerHTML = `<h1>S${String(obj.season).padStart(2,0)}E${String(obj.number).padStart(2,0)}</h1><div><img src=${obj.image.medium} /></div><span>${obj.name}</span><div class='overlay'>${obj.summary}</div>`;
+        newDiv.className = "episode";
+
+
+        episodesArticle.appendChild(newDiv);
+      }
+    });
+
+  }
+  episodesHandler(episodes);
 
 
 
