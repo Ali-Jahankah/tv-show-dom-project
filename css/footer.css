@@ -1,0 +1,42 @@
+:root {
+    --dark: #3c3c3c;
+    --purple: #945d60;
+    --green: #008080;
+    --red: #AF473C;
+
+}
+
+.footer {
+    width: 100%;
+    background: black;
+    color: rgba(255, 255, 255, 0.527);
+    text-align: center;
+    padding: 1em;
+    font-size: 0.6rem;
+}
+
+.footer img {
+    width: 80px;
+
+    vertical-align: middle;
+
+}
+
+
+/*   Media Queries-----------------------  */
+/* ========================================= */
+
+
+
+@media screen and (min-width:500px) {
+    .footer {
+        font-size: 0.8rem;
+    }
+}
+
+
+/*   Media Queries-----------------------  */
+/* ========================================= */
+
+
+@media screen and (min-width:800px) {}

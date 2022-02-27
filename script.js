@@ -14,7 +14,6 @@ function setup() {
   nav_menu_div.className = "nav_menu_div";
   const menu_ul = document.createElement("ul");
   menu_ul.className = "nav_ul";
-  nav_menu_div.appendChild(menu_ul);
   let menuArr = ["Login", "Contact", "News", "Offers"];
 
   const menu_li_1 = document.createElement("li");
@@ -24,16 +23,20 @@ function setup() {
   let liArr = [menu_li_1, menu_li_2, menu_li_3, menu_li_4]
   for (let i = 0; i < menuArr.length; i++) {
     liArr[i].className = "nav_li";
-    liArr[i].innerHTML = `<a href=#${menuArr[i]}>${menuArr[i]}</a>`;
-    menu_ul.appendChild(liArr[i])
+    liArr[i].innerHTML = `<a href=#${menuArr[i]} class=nav_link>${menuArr[i]}</a>`;
+    menu_ul.appendChild(liArr[i]);
+
   }
+  //Nav input containter-------------------
+  const nav_input_div = document.createElement("div");
+  nav_input_div.className = "nav_input_div";
 
   //nav search
-  const nav_search_div = document.createElement("div");
-  nav_search_div.className = "nav_search_div";
+
   const nav_search = document.createElement("input");
   nav_search.className = "nav_search";
-  nav_search_div.appendChild(nav_search);
+
+  nav_input_div.appendChild(nav_search);
   nav_search.value = "";
   nav_search.placeholder = "search...";
   //Event listener for the search input
@@ -43,14 +46,12 @@ function setup() {
       return obj.summary.includes(e.target.value) || obj.name.includes(e.target.value)
     });
     noneValueOption.selected = true;
-    console.log(nav_select.value);
-    episodesHandler(newArr)
+    episodesHandler(newArr);
   })
   //nav select
-  const nav_select_div = document.createElement("div");
-  nav_select_div.className = "nav_select_div";
+
   const nav_select = document.createElement("select");
-  nav_select_div.appendChild(nav_select);
+  nav_input_div.appendChild(nav_select);
   nav_select.value = "none";
   nav_select.className = "nav_select";
   episodes.forEach(item => {
@@ -85,28 +86,36 @@ function setup() {
   bottomDiv.className = "bottom_burger";
   burgerContainer.append(topDiv, middleDiv, bottomDiv);
   //Hamburger Menu-------
-  let burgerMenu = document.createElement("div");
+  const burgerMenu = document.createElement("div");
   burgerMenu.className = "burger_menu";
   burgerContainer.addEventListener("click", () => {
     burgerMenu.classList.toggle("moving_menu");
   });
-  burgerMenu.appendChild(menu_ul);
-  rootTag.appendChild(burgerMenu);
+  header.appendChild(burgerMenu);
+
+
+  nav_menu_div.appendChild(menu_ul);
+  burgerMenu.appendChild(menu_ul.cloneNode(true));
   //Creating header by appending the children
   header.appendChild(nav);
-  nav.append(burgerContainer, nav_menu_div, nav_select_div, nav_search_div);
+  nav.append(burgerContainer, nav_menu_div, nav_input_div);
   //--------------------------Main
   //Nav SVG
   const wave = document.createElement("img");
   wave.src = "./svg/wave.svg";
   wave.className = "nav_svg";
-  header.appendChild(wave);
+
 
   //----------Creating Main-------
-
+  const mainTag = document.createElement("main");
+  mainTag.className = "main";
   const episodesArticle = document.createElement("article");
-  rootTag.append(header, episodesArticle);
+
+
+  rootTag.append(header, mainTag);
   episodesArticle.className = "episodes";
+  const totalEpisodesCounter = document.createElement("h3");
+
 
   //------Showing all the episodes
   const episodesHandler = (arr) => {
@@ -116,25 +125,31 @@ function setup() {
 
     }
     if (arr.length === 0) {
-
+      totalEpisodesCounter.innerHTML = "";
       return episodesArticle.innerHTML = "<h1 style='text-align:center ; width:100%'>Ooops, Sorry nothing found!</h1>"
     }
+    totalEpisodesCounter.innerHTML = `Total Parts: ${arr.length}/${episodes.length}`;
+    mainTag.append(wave, totalEpisodesCounter, episodesArticle);
+
     arr.forEach(obj => {
 
       let newDiv = document.createElement("div");
-      if (arr.length === 0) {
-        document.querySelector(".episodes")
-      } else {
-        newDiv.innerHTML = `<h1>S${String(obj.season).padStart(2,0)}E${String(obj.number).padStart(2,0)}</h1><div><img src=${obj.image.medium} /></div><span>${obj.name}</span><div class='overlay'>${obj.summary}</div>`;
-        newDiv.className = "episode";
 
+      newDiv.innerHTML = `<h1>Part: S${String(obj.season).padStart(2,0)}E${String(obj.number).padStart(2,0)}</h1><div><img src=${obj.image.medium} /></div><span>Name: ${obj.name}</span><div class='overlay'>${obj.summary}</div>`;
+      newDiv.className = "episode";
+      episodesArticle.appendChild(newDiv);
 
-        episodesArticle.appendChild(newDiv);
-      }
     });
+
 
   }
   episodesHandler(episodes);
+
+  // Creating Footer -----------
+  const footer = document.createElement("footer");
+  footer.className = "footer";
+  footer.innerHTML = `<h1>GitHub: <a href='https://github.com/Ali-Jahankah'><img src='./img/DepressiveAli.png' alt='footer image' /></a></h1><h1>Made by Ali Jahankah | 2022</h1>`;
+  rootTag.appendChild(footer);
 
 
 
