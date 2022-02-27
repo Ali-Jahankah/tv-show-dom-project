@@ -148,7 +148,7 @@ function setup() {
   // Creating Footer -----------
   const footer = document.createElement("footer");
   footer.className = "footer";
-  footer.innerHTML = `<h1>GitHub: <a href='https://github.com/Ali-Jahankah'><img src='./img/DepressiveAli.png' alt='footer image' /></a></h1><h1>Made by Ali Jahankah | 2022</h1>`;
+  footer.innerHTML = `<h1>GitHub: <a href='https://github.com/Ali-Jahankah'><img src='./img/DepressiveAli.png' alt='footer image' /></a></h1><h1>Made by Ali Jahankah | 2022</h1><h3>Data is coming from <a href='https://tvmaze.com'>TV Maze</a></h5>`;
   rootTag.appendChild(footer);
 
 
