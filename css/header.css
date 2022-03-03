@@ -6,6 +6,32 @@
 
 }
 
+@keyframes logo {
+    0% {
+        text-shadow: 0 0 3px rgb(255, 255, 255);
+    }
+
+    20% {
+        text-shadow: 0 0 5px pink;
+
+    }
+
+    40% {
+        text-shadow: 3px 0 6px yellow;
+
+    }
+
+    60% {
+        text-shadow: 0 0px 8px rgb(217, 0, 255);
+
+    }
+
+    80% {
+        text-shadow: 1px 0 3px white;
+
+    }
+}
+
 .header {
     width: 100%;
     padding: 0.5em;
@@ -21,6 +47,13 @@
     padding-top: 0.8em;
 }
 
+.logo {
+    margin: 1em;
+    letter-spacing: 7px;
+    font-weight: 700;
+    font-size: 2rem;
+    animation: logo 9s infinite;
+}
 
 
 .nav {
@@ -44,7 +77,8 @@
 }
 
 .nav_search,
-.nav_select {
+.nav_select,
+.nav_shows_select {
     margin: 5px;
     padding: 0.5em;
     border-radius: 10px;
@@ -57,12 +91,14 @@
 
 
 
-.nav_select::-webkit-scrollbar {
+.nav_select::-webkit-scrollbar,
+.nav_shows_select::-webkit-scrollbar {
     background-color: var(--red);
 
 }
 
-.nav_select::-webkit-scrollbar-thumb {
+.nav_select::-webkit-scrollbar-thumb,
+.nav_shows_select::-webkit-scrollbar-thumb {
     border-radius: 50%;
     background-color: black;
     z-index: 27;
@@ -78,7 +114,6 @@
     flex-direction: column;
     width: 100%;
     justify-content: space-evenly;
-    height: 80%;
     text-align: center;
 
     font-size: 2.2rem;
@@ -89,7 +124,7 @@
 
 .nav_ul li {
     list-style: none;
-    font-weight: 700;
+    margin: 0 5px;
 }
 
 .nav_link {
@@ -98,6 +133,7 @@
     transition: 1.2s all;
     margin: 0 5px;
     border-bottom: 4px solid transparent;
+    font-weight: 900;
 
 }
 
@@ -106,6 +142,7 @@
     border-width: 100%;
     transform: scale(1.2);
     color: black;
+
 }
 
 /* ------Burger BTN */

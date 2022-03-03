@@ -1,18 +1,45 @@
 //You can edit ALL of the code here
 const rootTag = document.getElementById("root");
+const allShows = getAllShows();
+const random = Math.floor(Math.random() * 10) + 1;
+const randomShowId = allShows[random].id;
 
-function setup() {
-  const episodes = getAllEpisodes();
-  //------------------Header-------------------
+const gettingData = (showId) => {
+  fetch(`https://api.tvmaze.com/shows/${showId}/episodes`)
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+    })
+    .then(data => {
+      render(data, allShows);
+    })
+    .catch(er => {
+      console.log(er)
+
+    })
+}
+
+function render(episodes, allShows) {
+  //======================================================Creating title
+  console.log(episodes);
+  const createTitle = (season, num, name) => {
+    return `S${String(season).padStart(2,0)}E${String(num).padStart(2,0)} - ${name}`;
+  }
+  //----------=======================================================--------Header-------------------
+  let myEpisodes = episodes;
   const header = document.createElement("header");
   header.className = "header";
-  //nav
+  //==========================================================================Nav
   const nav = document.createElement("nav");
   nav.className = "nav";
-  //nav menu
+  //=========================================================================Nav menu
   const nav_menu_div = document.createElement("div");
   nav_menu_div.className = "nav_menu_div";
   const menu_ul = document.createElement("ul");
+  const logo = document.createElement("h1");
+  logo.className = "logo";
+  logo.innerText = "TV Show";
   menu_ul.className = "nav_ul";
   let menuArr = ["Login", "Contact", "News", "Offers"];
 
@@ -27,55 +54,86 @@ function setup() {
     menu_ul.appendChild(liArr[i]);
 
   }
-  //Nav input containter-------------------
+  //============================================================Nav input containter-------------------
   const nav_input_div = document.createElement("div");
   nav_input_div.className = "nav_input_div";
 
-  //nav search
+  //=========================================================================nav search
 
   const nav_search = document.createElement("input");
   nav_search.className = "nav_search";
 
-  nav_input_div.appendChild(nav_search);
+
   nav_search.value = "";
   nav_search.placeholder = "search...";
-  //Event listener for the search input
+  //==================================================Event listener for the search input
 
   nav_search.addEventListener("input", (e) => {
-    const newArr = episodes.filter(obj => {
+
+    const newArr = myEpisodes.filter(obj => {
       return obj.summary.includes(e.target.value) || obj.name.includes(e.target.value)
     });
-    noneValueOption.selected = true;
     episodesHandler(newArr);
   })
-  //nav select
+  //===============================================================================nav select
 
   const nav_select = document.createElement("select");
-  nav_input_div.appendChild(nav_select);
-  nav_select.value = "none";
+
   nav_select.className = "nav_select";
-  episodes.forEach(item => {
-    let newOption = document.createElement("option");
+  const creatingEpisodes = (arr) => {
+    nav_select.innerHTML = "";
+    arr.forEach(item => {
+      let newOption = document.createElement("option");
 
-    newOption.value = item.name;
-    newOption.innerText = `$S${String(item.season).padStart(2,0)}E${String(item.number).padStart(2,0)} - ${item.name}`;
-    nav_select.appendChild(newOption);
+      newOption.value = item.name;
+      newOption.innerText = createTitle(item.season, item.number, item.name);
 
-  });
-  let noneValueOption = document.createElement("option");
-  noneValueOption.value = "none";
-  noneValueOption.selected = true;
-  noneValueOption.innerText = "None";
-  nav_select.appendChild(noneValueOption)
-  //Event listener for the select tag
+      nav_select.appendChild(newOption);
+
+
+    });
+    let noneValueOption = document.createElement("option");
+    noneValueOption.value = "none";
+    noneValueOption.selected = true;
+    noneValueOption.innerText = "None";
+    nav_select.appendChild(noneValueOption)
+  }
+  creatingEpisodes(myEpisodes);
+
+  //========================================================================Event listener for the select tag
   nav_select.addEventListener("change", () => {
-    const newArr = episodes.filter(item => {
+    const newArr = myEpisodes.filter(item => {
       return item.name === nav_select.value;
     });
     nav_search.value = "";
-    newArr.length === 0 ? episodesHandler(episodes) : episodesHandler(newArr)
+    newArr.length === 0 ? episodesHandler(myEpisodes) : episodesHandler(newArr)
   })
-  //Hamburger BTN
+  //=======================================================================Nav select for all tv shows
+  const allShowsSelect = document.createElement("select");
+  allShowsSelect.className = "nav_shows_select";
+  const sortedShow = allShows.sort((a, b) => a.name.localeCompare(b.name));
+  console.log(sortedShow);
+  sortedShow.forEach(item => {
+    const newOpt = document.createElement("option");
+    newOpt.value = item.id;
+    newOpt.innerText = item.name;
+    allShowsSelect.appendChild(newOpt);
+  });
+  allShowsSelect.addEventListener("change", (e) => {
+    fetch(`https://api.tvmaze.com/shows/${e.target.value}/episodes`)
+      .then(res => {
+        if (res && res.ok) {
+          return res.json()
+        }
+      })
+      .then(data => {
+        myEpisodes = data;
+        creatingEpisodes(data);
+        return episodesHandler(data)
+      })
+  })
+  nav_input_div.append(nav_search, nav_select, allShowsSelect);
+  //==============================================================================Hamburger BTN
   let burgerContainer = document.createElement("div");
   burgerContainer.className = "burger_container";
   let topDiv = document.createElement("div");
@@ -85,7 +143,7 @@ function setup() {
   let bottomDiv = document.createElement("div");
   bottomDiv.className = "bottom_burger";
   burgerContainer.append(topDiv, middleDiv, bottomDiv);
-  //Hamburger Menu-------
+  //======================================================================================Hamburger Menu-------
   const burgerMenu = document.createElement("div");
   burgerMenu.className = "burger_menu";
   burgerContainer.addEventListener("click", () => {
@@ -94,19 +152,19 @@ function setup() {
   header.appendChild(burgerMenu);
 
 
-  nav_menu_div.appendChild(menu_ul);
+  nav_menu_div.append(menu_ul, logo);
   burgerMenu.appendChild(menu_ul.cloneNode(true));
-  //Creating header by appending the children
+  //======================================================================Creating header by appending the children
   header.appendChild(nav);
   nav.append(burgerContainer, nav_menu_div, nav_input_div);
-  //--------------------------Main
-  //Nav SVG
+  //---------------------============================================================-----Main
+  //=====================================================================================Nav SVG
   const wave = document.createElement("img");
   wave.src = "./svg/wave.svg";
   wave.className = "nav_svg";
 
 
-  //----------Creating Main-------
+  //-------=============================================================================---Creating Main-------
   const mainTag = document.createElement("main");
   mainTag.className = "main";
   const episodesArticle = document.createElement("article");
@@ -117,7 +175,7 @@ function setup() {
   const totalEpisodesCounter = document.createElement("h3");
 
 
-  //------Showing all the episodes
+  //---===========================================================---Showing all the episodes in body =====================
   const episodesHandler = (arr) => {
 
     while (episodesArticle.hasChildNodes()) {
@@ -128,14 +186,14 @@ function setup() {
       totalEpisodesCounter.innerHTML = "";
       return episodesArticle.innerHTML = "<h1 style='text-align:center ; width:100%'>Ooops, Sorry nothing found!</h1>"
     }
-    totalEpisodesCounter.innerHTML = `Total Parts: ${arr.length}/${episodes.length}`;
+    totalEpisodesCounter.innerHTML = `Total Parts: ${arr.length}/${myEpisodes.length}`;
     mainTag.append(wave, totalEpisodesCounter, episodesArticle);
 
     arr.forEach(obj => {
 
       let newDiv = document.createElement("div");
 
-      newDiv.innerHTML = `<h1>Part: S${String(obj.season).padStart(2,0)}E${String(obj.number).padStart(2,0)}</h1><div><img src=${obj.image.medium} /></div><span>Name: ${obj.name}</span><div class='overlay'>${obj.summary}</div>`;
+      newDiv.innerHTML = `<h1>Part: S${String(obj.season).padStart(2,0)}E${String(obj.number).padStart(2,0)}</h1><div><img src=${obj.image?obj.image.medium:'https://thumbs.dreamstime.com/z/error-page-not-found-background-template-skull-bones-error-page-not-found-background-template-skull-bones-yellow-black-132817880.jpg'}  /></div><span> ${obj.name}</span><div class='overlay'>${obj.summary}</div>`;
       newDiv.className = "episode";
       episodesArticle.appendChild(newDiv);
 
@@ -143,7 +201,7 @@ function setup() {
 
 
   }
-  episodesHandler(episodes);
+  episodesHandler(myEpisodes);
 
   // Creating Footer -----------
   const footer = document.createElement("footer");
@@ -151,25 +209,8 @@ function setup() {
   footer.innerHTML = `<h1>GitHub: <a href='https://github.com/Ali-Jahankah'><img src='./img/DepressiveAli.png' alt='footer image' /></a></h1><h1>Made by Ali Jahankah | 2022</h1><h3>Data is coming from <a href='https://tvmaze.com'>TV Maze</a></h5>`;
   rootTag.appendChild(footer);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 
 
-window.onload = setup;
+window.onload = gettingData(randomShowId);
