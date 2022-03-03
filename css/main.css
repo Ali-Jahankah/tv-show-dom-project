@@ -1,0 +1,201 @@
+* {
+    padding: 0;
+    margin: 0;
+    outline: 0;
+    box-sizing: border-box;
+    border: 0;
+    line-height: 1.5em;
+    font-weight: 500;
+}
+
+:root {
+    --dark: #3c3c3c;
+    --purple: #945d60;
+    --green: #008080;
+    --red: #AF473C;
+
+}
+
+
+@keyframes episodeBorder {
+    0% {
+        border-top: 2px solid orangered
+    }
+
+    20% {
+        border-top: 2px solid rgb(14, 125, 251)
+    }
+
+    40% {
+        border-top: 2px solid yellow
+    }
+
+    60% {
+        border-top: 2px solid rgb(255, 0, 234)
+    }
+
+    80% {
+        border-top: 2px solid rgb(0, 218, 0)
+    }
+
+    100% {
+        border-top: 2px solid orangered
+    }
+}
+
+
+
+#root {
+    width: 100%;
+    background: var(--green);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.main {
+    width: 100%;
+
+    position: relative;
+}
+
+.main h3 {
+    text-decoration: underline;
+    text-align: center;
+    margin-top: 6em;
+}
+
+.episodes {
+    width: 100%;
+    padding: 1em;
+    display: flex;
+    position: relative;
+    background: var(--green);
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+}
+
+.episode {
+    width: 45%;
+    position: relative;
+    min-height: 330px;
+    overflow-x: hidden;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 20px;
+    box-shadow: 0 0 18px 3px white;
+    margin: 1.5em 0 0;
+    padding: 1.5em 0.5em;
+    border-top: 2px solid var(--red);
+    background: linear-gradient(var(--green)50%, var(--dark)50%);
+}
+
+.episode span {
+    font-size: 1.1rem;
+    display: block;
+    font-weight: 700;
+    color: rgb(128, 225, 255);
+    margin-top: 1rem;
+}
+
+
+
+.episode:hover .overlay {
+    transform: translateX(0);
+    background: rgb(19, 18, 18);
+}
+
+.episode img {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.overlay {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    min-height: 100%;
+    bottom: 0;
+    background: var(--dark);
+    color: wheat;
+    transition: all 1.5s;
+    transform: translateX(100%);
+    animation: episodeBorder infinite 4s;
+    border-top: 2px solid;
+    overflow-y: scroll;
+    padding: 0.5em;
+    border-radius: 20px;
+}
+
+.overlay::-webkit-scrollbar {
+    background: transparent;
+}
+
+.overlay::-webkit-scrollbar-thumb {
+    background: linear-gradient(transparent, var(--red));
+}
+
+
+
+/*   Media Queries-----------------------  */
+/* ========================================= */
+
+@media screen and (min-width:500px) {
+    .episode {
+        width: 45%;
+        height: 300px;
+        font-size: 1rem;
+
+        border: 0px;
+        padding: 0.5em;
+    }
+
+    .episodes {
+        margin-top: 0;
+    }
+
+    .overlay {
+        padding: 1em;
+    }
+
+    .main h3 {
+        margin-top: 3em;
+    }
+
+
+
+
+}
+
+
+
+
+/*   Media Queries-----------------------  */
+/* ========================================= */
+@media screen and (min-width:800px) {
+    .episode {
+        width: 30%;
+        height: 350px;
+
+    }
+
+    .episode img {
+        width: 80%;
+    }
+
+    .episode span {
+        font-size: 1.4rem;
+    }
+
+    .main h3 {
+        font-size: 1.5rem;
+    }
+
+    .overlay {
+        font-size: 1.4rem;
+    }
+}
