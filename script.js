@@ -71,7 +71,7 @@ function render(episodes, allShows) {
   nav_search.addEventListener("input", (e) => {
 
     const newArr = myEpisodes.filter(obj => {
-      return obj.summary.includes(e.target.value) || obj.name.includes(e.target.value)
+      return obj.summary.includes(e.target.value.toLowerCase()) || obj.name.toLowerCase().includes(e.target.value.toLowerCase())
     });
     episodesHandler(newArr);
   })
