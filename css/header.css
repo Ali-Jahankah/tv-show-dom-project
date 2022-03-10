@@ -52,7 +52,7 @@
     letter-spacing: 7px;
     font-weight: 700;
     font-size: 2rem;
-    animation: logo 9s infinite;
+    animation: logo 6s infinite;
 }
 
 
@@ -74,6 +74,7 @@
     width: 50%;
     display: flex;
     flex-direction: column;
+
 }
 
 .nav_search,
@@ -83,6 +84,7 @@
     padding: 0.5em;
     border-radius: 10px;
     background: var(--purple);
+    transition: all 1s;
 }
 
 .nav_search::placeholder {
@@ -110,6 +112,7 @@
 
 .nav_ul {
     width: 100%;
+    height: 80%;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -182,6 +185,17 @@
 /* ========================================= */
 
 @media screen and (min-width:500px) {
+    h1 {
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    p {
+        font-size: 0.8rem;
+    }
+
+
+
     .header {
         background: var(--green);
         position: static;
@@ -213,6 +227,15 @@
         display: block;
 
     }
+
+    .nav_ul {
+        height: auto;
+    }
+
+
+
+
+
 }
 
 
@@ -221,5 +244,23 @@
 @media screen and (min-width:800px) {
     .nav_link {
         font-size: 1.5rem;
+    }
+
+
+
+
+}
+
+@media screen and (min-width:1024px) {
+    h1 {
+        font-size: 1.3rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    .show_detail_div ul li {
+        font-size: 1rem;
     }
 }
