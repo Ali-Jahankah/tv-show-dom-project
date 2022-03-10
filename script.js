@@ -98,6 +98,9 @@ const tvshowsRender = (tvshowsArray) => {
   window.setTimeout(() => {
     loaderContainer.classList.add("hide_loader");
   }, 1000)
+  window.setTimeout(() => {
+    loaderContainer.classList.add("hidden")
+  }, 4000)
 
   //----------=======================================================--------Header-------------------
   let myStorage = tvshowsArray;

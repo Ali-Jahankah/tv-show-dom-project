@@ -29,13 +29,16 @@
 
 }
 
+.hidden {
+    display: none;
+}
+
 .loader_container img {
     display: block;
     margin: auto;
 }
 
 .hide_loader {
-    height: 0;
     opacity: 0;
 }
 
