@@ -16,7 +16,6 @@ const createTitle = (season, num, name) => {
   return `S${String(season).padStart(2,0)}E${String(num).padStart(2,0)} - ${name}`;
 }
 
-
 const gettingData = () => {
   rootTag.appendChild(loaderContainer);
   const allTvShows = getAllShows();
@@ -77,7 +76,7 @@ const showTvshows = (arr) => {
     const showTitle = document.createElement("h1");
     showTitle.innerText = obj.name;
     const detailDiv = document.createElement("div");
-    detailDiv.innerHTML = `<ul><li>Genres: ${obj.genres?obj.genres.join(" | "):console.log(obj)}</li><li>Status: ${obj.status}</li><li>Rating: ${obj.rating.average}</li><li>Time: ${obj.runtime} Minutes</li></ul>`
+    detailDiv.innerHTML = `<ul><li>Genres: ${obj.genres?obj.genres.join(" | "):null}</li><li>Status: ${obj.status}</li><li>Rating: ${obj.rating.average}</li><li>Time: ${obj.runtime} Minutes</li></ul>`
     const imgDiv = document.createElement("div");
     const showImg = document.createElement("img");
     showImg.src = obj.image ? obj.image.medium : 'https://thumbs.dreamstime.com/z/error-page-not-found-background-template-skull-bones-error-page-not-found-background-template-skull-bones-yellow-black-132817880.jpg';
@@ -145,23 +144,26 @@ const tvshowsRender = (tvshowsArray) => {
   //==================================================Event listener for the search input
 
   nav_search.addEventListener("input", (e) => {
-    let searchValue = e.target.value.toLowerCase();
-    const filteredArr = myStorage.filter(obj => {
+    let searchValue = e.target.value;
+    let filteredArray = [];
+    myStorage.forEach(obj => {
+      if (obj.name && obj.name.includes(searchValue)) {
+        filteredArray.push(obj)
+      } else if (obj.summary && obj.summary.length > 1 && obj.summary.includes(searchValue)) {
+        filteredArray.push(obj)
+      } else if (obj.status && obj.status.includes(searchValue)) {
 
-      if (obj.genres || obj.status || obj.rating) {
-        if (obj.summary && obj.summary.length > 1) {
-          return obj.summary.includes(searchValue) || obj.name.includes(searchValue)
-        }
-
-      } else if (obj.summary && obj.name) {
-        return obj.summary.includes(searchValue) || obj.name.includes(searchValue)
-      } else {
-        obj.name.toLowerCase().includes(searchValue)
+        filteredArray.push(obj)
+      } else if (obj.rating && String(obj.rating.average).includes(searchValue)) {
+        filteredArray.push(obj)
+      } else if (obj.genres && obj.genres.join(" ").includes(searchValue)) {
+        filteredArray.push(obj)
       }
+    })
 
-    });
 
-    myStorage === tvshowsArray ? showTvshows(filteredArr) : renderEpisodes(filteredArr);
+
+    myStorage === tvshowsArray ? showTvshows(filteredArray) : renderEpisodes(filteredArray);
 
 
   })
